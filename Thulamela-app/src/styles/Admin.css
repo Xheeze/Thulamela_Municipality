@@ -1,0 +1,22 @@
+/* Minimal admin styles */
+.admin-page {
+  padding: var(--space-lg);
+}
+
+.admin-nav {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.admin-nav a {
+  padding: 0.5rem 0.75rem;
+  background: var(--light);
+  border-radius: 6px;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.admin-nav a:hover { background: white; color: var(--primary); }
+
+.admin-section { background: white; padding: var(--space-md); border-radius: var(--border-radius); box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
