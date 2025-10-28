@@ -16,7 +16,7 @@ Quick start (Windows PowerShell):
 
    pnpm dev
 
-4. Open the URL reported by Vite (usually http://localhost:5173)
+4. Open the URL reported by Vite (usually http://xheeze.giuthub.io/Thulamela_Municipality/)
 
 Notes:
 - I used simple emojis and CSS shapes as placeholders for icons and the logo. Replace them with your assets (copy your mockup image into `public` or `src/assets` and update components).
