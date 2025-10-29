@@ -3,6 +3,11 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 export default defineConfig({
+  // Set correct base path for GitHub Pages when building in Actions
+  // On GitHub Actions, GITHUB_REPOSITORY is like "owner/repo" -> use repo for base
+  base: process.env.GITHUB_ACTIONS
+    ? `/${(process.env.GITHUB_REPOSITORY || '').split('/')[1] || ''}/`
+    : '/',
   plugins: [react()],
   server: {
     port: 3000

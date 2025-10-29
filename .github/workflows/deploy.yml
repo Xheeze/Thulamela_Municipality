@@ -1,0 +1,65 @@
+name: Deploy Vite app to GitHub Pages
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install dependencies
+        working-directory: Thulamela-app
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        working-directory: Thulamela-app
+        env:
+          # Provided by GitHub Actions; used by Vite base config
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_ACTIONS: true
+        run: pnpm build
+
+      - name: SPA fallback (copy index.html to 404.html)
+        working-directory: Thulamela-app/dist
+        run: cp index.html 404.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: Thulamela-app/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
