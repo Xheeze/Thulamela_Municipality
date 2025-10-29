@@ -5,7 +5,8 @@ const LS_KEYS = {
   APPOINTMENTS: 'digiserve:appointments',
   PROFILE: 'digiserve:profile',
   FEEDBACK: 'digiserve:feedback',
-  QUEUE: 'digiserve:queue'
+  QUEUE: 'digiserve:queue',
+  TASKS: 'digiserve:tasks'
 }
 
 function read(key, fallback = []) {
@@ -159,6 +160,46 @@ export function addToQueue(ticket) {
   return q
 }
 
+// Tasks
+export function getTasks() {
+  return read(LS_KEYS.TASKS, [])
+}
+
+export function saveTask({ title, description, assignedTo, priority, dueDate, category }) {
+  const tasks = getTasks()
+  const task = {
+    id: id('task_'),
+    title,
+    description,
+    assignedTo,
+    priority: priority || 'medium',
+    dueDate,
+    category: category || 'general',
+    status: 'open',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  }
+  tasks.unshift(task)
+  write(LS_KEYS.TASKS, tasks)
+  return task
+}
+
+export function updateTask(idVal, patch) {
+  const tasks = getTasks()
+  const idx = tasks.findIndex(t => t.id === idVal)
+  if (idx === -1) return null
+  tasks[idx] = { ...tasks[idx], ...patch, updatedAt: new Date().toISOString() }
+  write(LS_KEYS.TASKS, tasks)
+  return tasks[idx]
+}
+
+export function deleteTask(idVal) {
+  let tasks = getTasks()
+  tasks = tasks.filter(t => t.id !== idVal)
+  write(LS_KEYS.TASKS, tasks)
+  return true
+}
+
 export default {
   getDocuments,
   saveDocument,
@@ -170,5 +211,12 @@ export default {
   saveProfile,
   getFeedback,
   saveFeedback,
-  getQueue
+  getQueue,
+  getQueueState,
+  callNext,
+  addToQueue,
+  getTasks,
+  saveTask,
+  updateTask,
+  deleteTask
 }

@@ -1,6 +1,6 @@
 import Icon from '@components/Icon'
-import LiveQueue from '@components/LiveQueue'
-import Announcements from '@components/Announcements'
+import LiveQueue from '@shared/components/LiveQueue'
+import Announcements from '@shared/components/Announcements'
 import { Link } from 'react-router-dom'
 
 const quickActions = [

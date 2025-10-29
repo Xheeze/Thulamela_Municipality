@@ -31,10 +31,10 @@
   --primary: #006838;
   --secondary: #FBB040;
   --accent: #39B54A;
-  /* High-contrast blues for Live Queue */
-  --blue-700: #0B69B4;
-  --blue-800: #094A8F;
-  --blue-gradient: linear-gradient(135deg, var(--blue-700) 0%, var(--blue-800) 100%);
+  /* Green theme colors for Live Queue */
+  --queue-primary: #006838;
+  --queue-secondary: #004A28;
+  --queue-gradient: linear-gradient(135deg, var(--queue-primary) 0%, var(--queue-secondary) 100%);
   
   /* UI colors */
   --text-primary: #333333;
@@ -147,8 +147,8 @@ input:focus, select:focus, textarea:focus {
 
 /* Live Queue styles */
 .live-queue {
-  background: var(--blue-gradient);
-  color: #ffffff;
+  background: white;
+  color: var(--text-primary);
   border-radius: var(--border-radius);
   padding: var(--space-xl);
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.10);
@@ -156,6 +156,11 @@ input:focus, select:focus, textarea:focus {
   max-width: auto;
   overflow: auto;
   position: relative;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 @media (max-width: 768px) {
@@ -190,7 +195,7 @@ input:focus, select:focus, textarea:focus {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: var(--space-lg);
-  color: #ffffff;
+  color: var(--primary);
 }
 
 .queue-grid {
@@ -206,8 +211,8 @@ input:focus, select:focus, textarea:focus {
 }
 
 .queue-card {
-  background: rgba(0, 0, 0, 0.28); /* darker for better contrast with white text */
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: var(--light);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: var(--border-radius);
   padding: var(--space-lg);
 }
@@ -216,19 +221,19 @@ input:focus, select:focus, textarea:focus {
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: var(--space-sm);
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--primary);
 }
 
 .ticket-number {
   font-size: 2.5rem;
   font-weight: 800;
   line-height: 1.1;
-  color: #ffffff;
+  color: var(--primary);
 }
 
 .queue-info {
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--queue-secondary);
   margin-top: var(--space-sm);
 }
 
@@ -262,21 +267,21 @@ input:focus, select:focus, textarea:focus {
 }
 
 .next-ticket {
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--light);
+  border: 1px solid var(--primary);
   border-radius: var(--border-radius);
   padding: var(--space-sm) var(--space-md);
   font-size: 1.125rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--primary);
 }
 
 /* Increase contrast for users who prefer more */
 @media (prefers-contrast: more) {
-  .live-queue { box-shadow: 0 0 0 2px rgba(255,255,255,0.25) inset; }
-  .queue-card { background: #0A4F8A; border-color: #FFFFFF; }
-  .next-ticket { background: #083B66; border-color: #FFFFFF; }
-  .card-label, .queue-info, .ticket-number { color: #FFFFFF; }
+  .live-queue { box-shadow: 0 0 0 2px var(--primary) inset; }
+  .queue-card { background: white; border-color: var(--primary); }
+  .next-ticket { background: white; border-color: var(--primary); }
+  .card-label, .queue-info, .ticket-number { color: var(--primary); }
 }
 
 /* Announcements styles */
@@ -374,11 +379,26 @@ input:focus, select:focus, textarea:focus {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+  align-items: flex-start;
 }
 
 .footer-logo {
-  height: 5rem;
+  max-height: 5rem;
+  height: auto;
   width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .footer-logo {
+    max-height: 4rem;
+  }
+  
+  .footer-brand {
+    align-items: center;
+    text-align: center;
+  }
 }
 
 .footer-tagline {
@@ -776,9 +796,11 @@ input:focus, select:focus, textarea:focus {
 }
 
 .logo {
-  height: 4rem;
+  max-height: 4rem;
+  height: auto;
   width: auto;
   max-width: 100%;
+  object-fit: contain;
 }
 
 .brand-text h1 {
@@ -1013,12 +1035,13 @@ input:focus, select:focus, textarea:focus {
 }
 .staff-nav a { color: white; text-decoration: none; }
 .staff-nav a:hover { color: var(--secondary); }
-.staff-user { margin-left: auto; } */
+.staff-user { margin-left: auto; }
+
 .user-avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  overflow: auto;
+  overflow: hidden;
 }
 .user-avatar img {
   width: 100%;

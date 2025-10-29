@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <img src={logo} alt="Thulamela Logo" className="footer-logo" height='flex' width='flex'/>
+            <img src={logo} alt="Thulamela Logo" className="footer-logo" />
             <p className="footer-tagline">
               Making service delivery our priority through sustainable development and good governance.
             </p>

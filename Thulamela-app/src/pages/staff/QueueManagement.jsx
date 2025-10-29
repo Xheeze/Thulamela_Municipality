@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Icon from '@components/Icon'
 import storage from '@shared/services/storage'
-
+import LiveQueue from '@shared/components/LiveQueue'
 
 export default function QueueManagement() {
+  const [refreshKey, setRefreshKey] = useState(0);
+  
   function getSafeQueue() {
     const fallback = { nowServing: 'A092', next: ['A093', 'A094', 'A095'], counter: 'Counter 3' };
     let q = fallback;
@@ -20,11 +22,53 @@ export default function QueueManagement() {
 
   useEffect(() => {
     setQueue(getSafeQueue());
-  }, []);z
+    
+    // Auto-refresh queue every 5 seconds
+    const interval = setInterval(() => {
+      setQueue(getSafeQueue());
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [refreshKey]);
 
   function handleCallNext() {
     storage.callNext();
     setQueue(getSafeQueue());
+    setRefreshKey(prev => prev + 1);
+  }
+
+  function handleAddToQueue() {
+    const newTicketNum = generateNextTicket();
+    storage.addToQueue(newTicketNum);
+    setQueue(getSafeQueue());
+    setRefreshKey(prev => prev + 1);
+  }
+
+  function handleSkipCurrent() {
+    const q = getSafeQueue();
+    if (q.next && q.next.length > 0) {
+      // Move current serving to end of queue
+      const current = q.nowServing;
+      storage.addToQueue(current);
+      handleCallNext();
+    }
+  }
+
+  function generateNextTicket() {
+    const q = getSafeQueue();
+    const allTickets = [q.nowServing, ...q.next].filter(Boolean);
+    
+    if (allTickets.length === 0) return 'A001';
+    
+    // Get the highest number
+    const numbers = allTickets.map(ticket => {
+      const match = ticket.match(/(\d+)$/);
+      return match ? parseInt(match[1]) : 0;
+    });
+    
+    const maxNum = Math.max(...numbers);
+    const nextNum = (maxNum + 1).toString().padStart(3, '0');
+    return `A${nextNum}`;
   }
 
   return (
@@ -32,14 +76,25 @@ export default function QueueManagement() {
       <div className="container">
         <h1 style={{ color: 'var(--primary)' }}>Queue Management</h1>
 
-        <div style={{ display: 'flex', gap: '1rem', margin: '1rem 0' }}>
+        <div style={{ display: 'flex', gap: '1rem', margin: '1rem 0', flexWrap: 'wrap' }}>
           <button className="action-btn" onClick={handleCallNext}>
             <Icon name="Queue" /> Call Next
           </button>
-          <button className="action-btn secondary">
-            <Icon name="Calendar" /> View Appointments
+          <button className="action-btn" onClick={handleAddToQueue}>
+            <Icon name="Upload" /> Add Ticket
+          </button>
+          <button className="action-btn secondary" onClick={handleSkipCurrent}>
+            <Icon name="Calendar" /> Skip Current
+          </button>
+          <button className="action-btn secondary" onClick={() => setRefreshKey(prev => prev + 1)}>
+            <Icon name="Settings" /> Refresh
           </button>
         </div>
+
+        {/* Live Queue Display */}
+        <section style={{ marginBottom: '2rem' }}>
+          <LiveQueue />
+        </section>
 
         <section className="card" style={{ marginBottom: '1rem' }}>
           <h2>Current Queue</h2>
