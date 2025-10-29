@@ -7,7 +7,8 @@
       "@layouts/*": ["src/layouts/*"],
       "@pages/*": ["src/pages/*"],
       "@components/*": ["src/shared/components/*"],
-      "@stores/*": ["src/shared/stores/*"]
+      "@stores/*": ["src/shared/stores/*"],
+      "@hooks/*": ["src/shared/hooks/*"]
     }
   }
 }

@@ -1,4 +1,4 @@
-Thulamel App — React mockup
+Thulamela App — React mockup
 
 This small project reproduces the mobile mockup UI you attached using React + CSS (Vite).
 
@@ -6,7 +6,7 @@ Quick start (Windows PowerShell):
 
 1. Open PowerShell and cd to the project folder:
 
-   cd "c:\Users\ozosi\Documents\DigiServe\thulamel-app"
+
 
 2. Install dependencies:
 
@@ -16,7 +16,7 @@ Quick start (Windows PowerShell):
 
    pnpm dev
 
-4. Open the URL reported by Vite (usually http://xheeze.giuthub.io/Thulamela_Municipality/)
+4. Open the URL reported by Vite (usually http://localhost:____)
 
 Notes:
 - I used simple emojis and CSS shapes as placeholders for icons and the logo. Replace them with your assets (copy your mockup image into `public` or `src/assets` and update components).
