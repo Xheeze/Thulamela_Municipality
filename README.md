@@ -1,4 +1,6 @@
 # Thulamela Municipality Digital Services App
+View Site ->  https://xheeze.github.io/Thulamela_Municipality/
+
 
 A modern, responsive web application for Thulamela Municipality providing digital services to both citizens and staff members.
 
@@ -58,71 +60,6 @@ A modern, responsive web application for Thulamela Municipality providing digita
    
    Navigate to `http://localhost:3000`
 
-### Building for Production
-
-```bash
-npm run build
-# or
-pnpm build
-```
-
-The production build will be generated in the `dist/` folder.
-
-## GitHub Pages Deployment
-
-This project is configured for automatic deployment to GitHub Pages via GitHub Actions.
-
-### Automatic Deployment (Recommended)
-
-1. **Push to GitHub**
-   ```bash
-   git add .
-   git commit -m "Initial commit"
-   git push origin main
-   ```
-
-2. **Enable GitHub Pages**
-   - Go to your repository on GitHub
-   - Navigate to **Settings** → **Pages**
-   - Under **Source**, select **GitHub Actions**
-   - The workflow will automatically trigger on push to `main`
-
-3. **Access your site**
-   
-   Your app will be available at: `https://<your-username>.github.io/<repo-name>/`
-
-### Manual Deployment
-
-```bash
-# Set environment variables (PowerShell)
-$env:GITHUB_ACTIONS="true"
-$env:GITHUB_REPOSITORY="<your-username>/<repo-name>"
-
-# Build and deploy
-npm run deploy
-```
-
-## Project Structure
-
-```
-Thulamela-app/
-├── src/
-│   ├── pages/
-│   │   ├── citizen/        # Citizen portal pages
-│   │   └── staff/          # Staff dashboard pages
-│   ├── shared/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── hooks/          # Custom React hooks
-│   │   ├── services/       # Business logic & storage
-│   │   └── stores/         # State management
-│   ├── layouts/            # Page layouts
-│   ├── App.jsx             # Main app component
-│   └── main.jsx            # Entry point
-├── public/                 # Static assets
-├── .github/workflows/      # CI/CD workflows
-└── vite.config.js          # Vite configuration
-```
-
 ## Key Features Implementation
 
 ### Live Queue System
@@ -139,11 +76,6 @@ Thulamela-app/
 - Priority-based task system (Low, Medium, High, Urgent)
 - Status tracking (To Do, In Progress, Done)
 - Quick task creation from dashboard
-
-## License
-
-MIT License - feel free to use this project for your municipality or organization.
-
 ## Support
 
-For issues and questions, please open an issue on GitHub.
+For issues and questions,
